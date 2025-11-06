@@ -1,0 +1,66 @@
+<div class="container">
+  <div>
+    <label>
+      <input
+        type="radio"
+        name="inputType"
+        value="xml"
+        [(ngModel)]="inputType"
+        (change)="inputTypeChange()"
+      />
+      XML input
+    </label>
+    <label>
+      <input
+        type="radio"
+        name="inputType"
+        value="json"
+        [(ngModel)]="inputType"
+        (change)="inputTypeChange()"
+      />
+      JSON input
+    </label>
+    <button [disabled]="mockLoading()" (click)="importMock()">
+      Load Mock Data
+      {{ mockLoading() ? '...' : '' }}
+    </button>
+  </div>
+  <textarea rows="10" cols="100" [(ngModel)]="inputTxt"></textarea>
+
+  @if(errorMsg){
+  <em class="error">{{ errorMsg }}</em>
+  }
+
+  <button (click)="updateData()">Validate Input</button>
+
+  @if(xmlData) {
+  <p>
+    <span class="icon success">✓</span>
+    Valid XMl Data
+    <button (click)="xmlData = ''">
+      <span class="icon danger">x</span>
+      Clear
+    </button>
+  </p>
+  } @if(jsonData) {
+  <p>
+    <span class="icon success">✓</span>
+    Valid JSON Data
+    <button (click)="jsonData = ''">
+      <span class="icon danger">x</span>
+      Clear
+    </button>
+  </p>
+  }
+
+  <button [disabled]="dataLoading() || !(xmlData && jsonData)" (click)="normalizeData()">
+    Get Normalizes Data
+    {{ dataLoading() ? '...' : '' }}
+  </button>
+
+  @if(normalized) {
+  <pre>
+    {{ normalized | json }}
+  </pre>
+  }
+</div>

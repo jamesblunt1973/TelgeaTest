@@ -1,0 +1,25 @@
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+em.error {
+  color: #c00;
+}
+
+textarea.error {
+  border: 1px solid #c00;
+}
+
+.icon {
+  font-weight: bold;
+  &.success {
+    color: #0c0;
+  }
+  &.danger {
+    color: #c00;
+  }
+}
