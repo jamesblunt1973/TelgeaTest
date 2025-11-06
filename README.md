@@ -11,3 +11,7 @@
 
 ### Run `npm test`
 ### Run `npm start` or `ng serve`
+
+## Next steps:
+1. Implement global error handling
+1. Using [JsonDiffPatch](https://jsondiffpatch.com/) to highlight differences between received normalized json and internal_expected.json
