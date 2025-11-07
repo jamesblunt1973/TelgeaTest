@@ -25,20 +25,35 @@ export class Normalizer {
 
   public updateData() {
     this.errorMsg = '';
-    if (this.inputType === 'xml') {
-      this.xmlData = '';
-      if (this.isValidXml(this.inputTxt)) {
-        this.xmlData = this.inputTxt;
-      } else {
-        this.errorMsg = 'Invalid XML!';
-      }
-    } else if (this.inputType === 'json') {
-      this.jsonData = '';
-      if (this.isValidJson(this.inputTxt)) {
-        this.jsonData = this.inputTxt;
-      } else {
-        this.errorMsg = 'Invalid JSON!';
-      }
+
+    const { inputType, inputTxt } = this;
+
+    if (inputType === 'xml') {
+      this.updateXmlData(inputTxt);
+      return;
+    }
+
+    if (inputType === 'json') {
+      this.updateJsonData(inputTxt);
+      return;
+    }
+  }
+
+  private updateXmlData(input: string) {
+    this.xmlData = '';
+    if (this.isValidXml(input)) {
+      this.xmlData = input;
+    } else {
+      this.errorMsg = 'Invalid XML!';
+    }
+  }
+
+  private updateJsonData(input: string) {
+    this.jsonData = '';
+    if (this.isValidJson(input)) {
+      this.jsonData = input;
+    } else {
+      this.errorMsg = 'Invalid JSON!';
     }
   }
 
