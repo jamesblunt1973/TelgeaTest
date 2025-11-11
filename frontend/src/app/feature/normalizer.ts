@@ -3,6 +3,9 @@ import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NormalizedResponse } from '../core/models';
 import { DataService } from '../core/services/data.serice';
+import * as jsondiffpatch from 'jsondiffpatch';
+import * as htmlFormatter from 'jsondiffpatch/formatters/html';
+import internal from '../assets/internal_expected.json'
 
 @Component({
   selector: 'app-normalizer',
@@ -18,6 +21,7 @@ export class Normalizer {
   public jsonData = '';
   public errorMsg = '';
   public inputTxt = '';
+  public diffHtml: string | undefined = '';
   public normalized?: NormalizedResponse;
 
   private dataService = inject(DataService);
@@ -92,6 +96,11 @@ export class Normalizer {
 
     this.inputTypeChange();
     this.cd.detectChanges();
+  }
+
+  public async showDiff() {
+    const delta = jsondiffpatch.diff(this.normalized, internal);
+    this.diffHtml = htmlFormatter.format(delta, this.normalized);
   }
 
   private isValidXml(xmlString: string): boolean {

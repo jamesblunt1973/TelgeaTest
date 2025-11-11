@@ -53,14 +53,20 @@
   </p>
   }
 
-  <button [disabled]="dataLoading() || !(xmlData && jsonData)" (click)="normalizeData()">
-    Get Normalizes Data
-    {{ dataLoading() ? '...' : '' }}
-  </button>
+  <div style="display: flex; gap: 1rem">
+    <button [disabled]="dataLoading() || !(xmlData && jsonData)" (click)="normalizeData()">
+      Get Normalizes Data
+      {{ dataLoading() ? '...' : '' }}
+    </button>
+    <button [disabled]="!normalized" (click)="showDiff()">Compare to internal_starndard</button>
+  </div>
 
-  @if(normalized) {
-  <pre>
-    {{ normalized | json }}
-  </pre>
-  }
+  <div style="display: flex; gap: 1rem">
+    @if(normalized) {
+    <pre>
+      {{ normalized | json }}
+    </pre>
+    }
+    <div [innerHTML]="diffHtml"></div>
+  </div>
 </div>
